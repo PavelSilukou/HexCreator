@@ -21,7 +21,7 @@ namespace HexCreator
         // private readonly string[] _axes = { "XZ+Y", "XY-Z", "XY+Z", "XZ-Y", "YZ+X", "YZ-X" };
         private float _additionalRotation = 0.0f;
 
-        [MenuItem("Create/Hex")]
+        [MenuItem("Tools/Hex Creator")]
         private static void Init()
         {
             var window = (HexCreator)GetWindow(typeof(HexCreator));
@@ -68,7 +68,6 @@ namespace HexCreator
             {
                 var targetMeshFilepath = GetTargetMeshFilepath();
                 AssetDatabase.DeleteAsset(targetMeshFilepath);
-                
                 var m = new Mesh
                 {
                     vertices = GetVertices(orientation, radiusType, direction, axis, _additionalRotation),
@@ -83,6 +82,8 @@ namespace HexCreator
                 AssetDatabase.Refresh();
                 
                 AssetDatabase.CreateAsset(m, targetMeshFilepath);
+                
+                Debug.Log($"Created in {targetMeshFilepath}");
             }
 
             DrawHex(orientation, radiusType, direction);
